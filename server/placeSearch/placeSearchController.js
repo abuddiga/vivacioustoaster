@@ -132,11 +132,12 @@ module.exports = {
       }, {});
 
       const uniquePlaces = getUniquePlacesAndConsolidateTags(consolidated);
+      const MAX_PLACES = MAX_PLACES_RETURNED < uniquePlaces.length ? MAX_PLACES_RETURNED : uniquePlaces.length; // eslint-disable-line
 
       // Sort results and send back top 20
       const curatedPlaces = _.chain(uniquePlaces)
                              .orderBy(['rating'], ['desc'])
-                             .slice(0, MAX_PLACES_RETURNED)
+                             .slice(0, MAX_PLACES)
                              .value();
       res.json(curatedPlaces);
     })
